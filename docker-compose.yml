@@ -1,0 +1,26 @@
+services:
+  postgres:
+    container_name: next-solution-postgres
+    image: postgres:15-alpine
+    ports:
+      - '5432:5432'
+    env_file:
+      - .env
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - next-solution-network
+    healthcheck:
+      test: pg_isready -U postgres -h localhost
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
+    name: next-solution-pgdata
+
+networks:
+  next-solution-network:
+    name: next-solution-network
