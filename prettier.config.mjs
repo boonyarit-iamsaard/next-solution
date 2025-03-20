@@ -4,6 +4,8 @@ const config = {
   importOrder: [
     '<BUILT_IN_MODULES>',
     '',
+    '<TYPES>',
+    '',
     '^(react/(.*)$)|^(react$)',
     '^(next/(.*)$)|^(next$)',
     '',
@@ -15,6 +17,9 @@ const config = {
     '^@/core/(.*)$',
     '^@/features/(.*)$',
     '',
+    '<TYPES>^[.|..|@]',
+    '^@/',
+    '^[../]',
     '^[./]',
   ],
   importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
