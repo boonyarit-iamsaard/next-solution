@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { Button } from '@/common/components/ui/button';
 
 export default function Page() {
@@ -7,7 +9,9 @@ export default function Page() {
         <h1 className="text-2xl font-bold">
           A Next.js starter kit for your next solution
         </h1>
-        <Button>Get Started</Button>
+        <Button asChild>
+          <Link href="/login">Get Started</Link>
+        </Button>
       </div>
     </main>
   );
