@@ -1,14 +1,14 @@
-import { Role } from '@prisma/client';
 import { betterAuth } from 'better-auth';
-import { prismaAdapter } from 'better-auth/adapters/prisma';
+import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { nextCookies } from 'better-auth/next-js';
 import { z } from 'zod';
 
 import { db } from '@/core/database/database.client';
+import { ROLES } from '@/core/database/schema';
 
 export const auth = betterAuth({
-  database: prismaAdapter(db, {
-    provider: 'postgresql',
+  database: drizzleAdapter(db, {
+    provider: 'pg',
   }),
   emailAndPassword: {
     enabled: true,
@@ -21,10 +21,10 @@ export const auth = betterAuth({
       role: {
         type: 'string',
         required: true,
-        defaultValue: Role.USER,
+        defaultValue: 'USER',
         validator: {
-          input: z.nativeEnum(Role),
-          output: z.nativeEnum(Role),
+          input: z.enum(ROLES),
+          output: z.enum(ROLES),
         },
       },
     },
