@@ -2,6 +2,8 @@
 
 import type { ChangeEvent } from 'react';
 
+import Link from 'next/link';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
@@ -15,22 +17,58 @@ import {
   FormMessage,
 } from '@/common/components/ui/form';
 import { Input } from '@/common/components/ui/input';
-import { loginRequestSchema } from '@/core/auth/auth.schema';
+import { authFormSchema } from '@/core/auth/auth.schema';
 
-import type { LoginRequest } from '@/core/auth/auth.schema';
+import type { AuthRequest } from '@/core/auth/auth.schema';
 
-export function LoginForm() {
-  const form = useForm<LoginRequest>({
+type AuthFormMode = 'login' | 'register';
+type AuthFormMetadata = {
+  title: string;
+  description: string;
+  submitLabel: string;
+  linkDescription: string;
+  linkLabel: string;
+  linkUrl: string;
+};
+type AuthFormHeading = Record<AuthFormMode, AuthFormMetadata>;
+
+const heading: AuthFormHeading = {
+  login: {
+    title: 'Login to your account',
+    description: 'Enter your email below to login to your account',
+    submitLabel: 'Login',
+    linkDescription: "Don't have an account?",
+    linkLabel: 'Register',
+    linkUrl: '/register',
+  },
+  register: {
+    title: 'Create an account',
+    description: 'Enter your email below to create an account',
+    submitLabel: 'Register',
+    linkDescription: 'Already have an account?',
+    linkLabel: 'Login',
+    linkUrl: '/login',
+  },
+};
+
+type AuthFormProps = {
+  mode?: AuthFormMode;
+};
+
+export function AuthForm({ mode = 'login' }: AuthFormProps) {
+  const form = useForm<AuthRequest>({
     defaultValues: {
+      mode,
+      name: '',
       email: '',
       password: '',
     },
-    resolver: zodResolver(loginRequestSchema),
+    resolver: zodResolver(authFormSchema),
   });
 
   function handleFieldChange(
     field: { onChange: (value: string) => void },
-    fieldName: keyof LoginRequest,
+    fieldName: keyof AuthRequest,
   ) {
     return function (e: ChangeEvent<HTMLInputElement>) {
       field.onChange(e.target.value);
@@ -38,10 +76,11 @@ export function LoginForm() {
     };
   }
 
-  function onSubmit(values: LoginRequest) {
-    console.log(values);
+  function onSubmit(values: AuthRequest) {
+    console.log(JSON.stringify(values, null, 2));
   }
 
+  // TODO: improve form layout shift when switching between login and register
   return (
     <Form {...form}>
       <form
@@ -49,12 +88,31 @@ export function LoginForm() {
         className="flex flex-col gap-6"
       >
         <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-2xl font-bold">Login to your account</h1>
+          <h1 className="text-2xl font-bold">{heading[mode].title}</h1>
           <p className="text-muted-foreground text-sm text-balance">
-            Enter your email below to login to your account
+            {heading[mode].description}
           </p>
         </div>
         <div className="grid gap-6">
+          {mode === 'register' ? (
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="John Doe"
+                      onChange={handleFieldChange(field, 'name')}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ) : null}
           <FormField
             control={form.control}
             name="email"
@@ -79,12 +137,14 @@ export function LoginForm() {
               <FormItem>
                 <FormLabel>
                   Password
-                  <a
-                    href="#"
-                    className="ml-auto text-sm font-normal underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
+                  {mode === 'login' ? (
+                    <a
+                      href="#"
+                      className="ml-auto text-sm font-normal underline-offset-4 hover:underline"
+                    >
+                      Forgot your password?
+                    </a>
+                  ) : null}
                 </FormLabel>
                 <FormControl>
                   <Input
@@ -99,7 +159,7 @@ export function LoginForm() {
             )}
           />
           <Button type="submit" className="w-full">
-            Login
+            {heading[mode].submitLabel}
           </Button>
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
             <span className="bg-background text-muted-foreground relative z-10 px-2">
@@ -116,11 +176,14 @@ export function LoginForm() {
             Login with GitHub
           </Button>
         </div>
-        <div className="text-center text-sm">
-          Don&apos;t have an account?{' '}
-          <a href="#" className="underline underline-offset-4">
-            Register
-          </a>
+        <div className="flex items-center justify-center gap-1 text-sm">
+          {heading[mode].linkDescription}{' '}
+          <Link
+            href={heading[mode].linkUrl}
+            className="underline underline-offset-4"
+          >
+            {heading[mode].linkLabel}
+          </Link>
         </div>
       </form>
     </Form>
