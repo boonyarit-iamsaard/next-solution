@@ -3,6 +3,7 @@
 import type { ChangeEvent } from 'react';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -17,9 +18,14 @@ import {
   FormMessage,
 } from '@/common/components/ui/form';
 import { Input } from '@/common/components/ui/input';
-import { authFormSchema } from '@/core/auth/auth.schema';
+import { authClient } from '@/core/auth/auth.client';
+import {
+  authFormSchema,
+  loginRequestSchema,
+  registerRequestSchema,
+} from '@/core/auth/auth.schema';
 
-import type { AuthRequest } from '@/core/auth/auth.schema';
+import type { AuthForm } from '@/core/auth/auth.schema';
 
 type AuthFormMode = 'login' | 'register';
 type AuthFormMetadata = {
@@ -56,7 +62,8 @@ type AuthFormProps = {
 };
 
 export function AuthForm({ mode = 'login' }: AuthFormProps) {
-  const form = useForm<AuthRequest>({
+  const router = useRouter();
+  const form = useForm<AuthForm>({
     defaultValues: {
       mode,
       name: '',
@@ -68,7 +75,7 @@ export function AuthForm({ mode = 'login' }: AuthFormProps) {
 
   function handleFieldChange(
     field: { onChange: (value: string) => void },
-    fieldName: keyof AuthRequest,
+    fieldName: keyof AuthForm,
   ) {
     return function (e: ChangeEvent<HTMLInputElement>) {
       field.onChange(e.target.value);
@@ -76,8 +83,59 @@ export function AuthForm({ mode = 'login' }: AuthFormProps) {
     };
   }
 
-  function onSubmit(values: AuthRequest) {
-    console.log(JSON.stringify(values, null, 2));
+  async function handleLogin(values: AuthForm) {
+    const result = loginRequestSchema.safeParse(values);
+    if (!result.success) {
+      // TODO: show error message
+      console.log(result.error);
+
+      return;
+    }
+
+    const { error } = await authClient.signIn.email({
+      email: values.email,
+      password: values.password,
+    });
+
+    if (error) {
+      // TODO: show error message
+      return;
+    }
+
+    router.replace('/');
+  }
+
+  async function handleRegister(values: AuthForm) {
+    const result = registerRequestSchema.safeParse(values);
+    if (!result.success) {
+      // TODO: show error message
+      console.log(result.error);
+
+      return;
+    }
+
+    const { error } = await authClient.signUp.email({
+      email: result.data.email,
+      password: result.data.password,
+      name: result.data.name,
+    });
+
+    if (error) {
+      // TODO: show error message
+      return;
+    }
+
+    router.replace('/login');
+  }
+
+  async function onSubmit(values: AuthForm) {
+    if (values.mode === 'login') {
+      await handleLogin(values);
+    }
+
+    if (values.mode === 'register') {
+      await handleRegister(values);
+    }
   }
 
   // TODO: improve form layout shift when switching between login and register
@@ -138,12 +196,12 @@ export function AuthForm({ mode = 'login' }: AuthFormProps) {
                 <FormLabel>
                   Password
                   {mode === 'login' ? (
-                    <a
-                      href="#"
+                    <Link
+                      href="/"
                       className="ml-auto text-sm font-normal underline-offset-4 hover:underline"
                     >
                       Forgot your password?
-                    </a>
+                    </Link>
                   ) : null}
                 </FormLabel>
                 <FormControl>

@@ -4,12 +4,21 @@ import { nextCookies } from 'better-auth/next-js';
 import { z } from 'zod';
 
 import { db } from '@/core/database/database.client';
+import * as schema from '@/core/database/schema';
 import { ROLES } from '@/core/database/schema';
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: 'pg',
+    schema: {
+      ...schema,
+      user: schema.users,
+    },
+    usePlural: true,
   }),
+  advanced: {
+    generateId: false,
+  },
   emailAndPassword: {
     enabled: true,
     // TODO: disable auto sign-in when seeding users
