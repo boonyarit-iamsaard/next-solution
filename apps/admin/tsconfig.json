@@ -1,5 +1,5 @@
 {
-  "extends": "@pet-shop/typescript-config/nextjs.json",
+  "extends": "@pet-shop/typescript-config/next.json",
   "compilerOptions": {
     "plugins": [
       {
