@@ -14,11 +14,14 @@
     "lint:fix": "turbo run lint:fix lint:root:fix --continue",
     "lint:root": "eslint --cache --cache-location .cache/.eslintcache",
     "lint:root:fix": "eslint --fix --cache --cache-location .cache/.eslintcache",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@pet-shop/eslint-config": "workspace:*",
     "eslint": "catalog:",
+    "husky": "^9.1.7",
+    "lint-staged": "catalog:",
     "turbo": "^2.5.5",
     "typescript": "catalog:"
   }

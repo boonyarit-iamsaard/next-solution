@@ -6,4 +6,5 @@ packages:
 catalog:
   '@types/node': ^22.15.3
   eslint: ^9.31.0
+  lint-staged: ^16.1.5
   typescript: ^5.8.3
