@@ -1,7 +1,7 @@
 {
   "name": "pet-shop",
   "private": true,
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@10.13.1",
   "engines": {
     "node": ">=18"
   },
@@ -18,8 +18,8 @@
   },
   "devDependencies": {
     "@pet-shop/eslint-config": "workspace:*",
-    "eslint": "^9.31.0",
+    "eslint": "catalog:",
     "turbo": "^2.5.5",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   }
 }
