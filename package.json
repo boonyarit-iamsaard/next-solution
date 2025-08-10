@@ -1,20 +1,25 @@
 {
   "name": "pet-shop",
   "private": true,
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "typecheck": "turbo run typecheck"
-  },
-  "devDependencies": {
-    "prettier": "^3.6.2",
-    "turbo": "^2.5.5",
-    "typescript": "5.8.3"
-  },
   "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=18"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "clean": "turbo run clean clean:root",
+    "clean:root": "git clean -xdf .cache .turbo node_modules",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint lint:root --continue",
+    "lint:fix": "turbo run lint:fix lint:root:fix --continue",
+    "lint:root": "eslint --cache --cache-location .cache/.eslintcache",
+    "lint:root:fix": "eslint --fix --cache --cache-location .cache/.eslintcache",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "@pet-shop/eslint-config": "workspace:*",
+    "eslint": "^9.31.0",
+    "turbo": "^2.5.5",
+    "typescript": "5.8.3"
   }
 }

@@ -1,22 +1,23 @@
-import Image, { type ImageProps } from "next/image";
-import { Button } from "@pet-shop/ui/button";
-import styles from "./page.module.css";
+import type { ImageProps } from 'next/image'
+import { Button } from '@pet-shop/ui/button'
+import Image from 'next/image'
+import styles from './page.module.css'
 
-type Props = Omit<ImageProps, "src"> & {
-  srcLight: string;
-  srcDark: string;
-};
+type Props = Omit<ImageProps, 'src'> & {
+  srcLight: string
+  srcDark: string
+}
 
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props;
+function ThemeImage(props: Props) {
+  const { srcLight, srcDark, ...rest } = props
 
   return (
     <>
       <Image {...rest} src={srcLight} className="imgLight" />
       <Image {...rest} src={srcDark} className="imgDark" />
     </>
-  );
-};
+  )
+}
 
 export default function Home() {
   return (
@@ -33,7 +34,9 @@ export default function Home() {
         />
         <ol>
           <li>
-            Get started by editing <code>apps/admin/app/page.tsx</code>
+            Get started by editing
+            {' '}
+            <code>apps/admin/app/page.tsx</code>
           </li>
           <li>Save and see your changes instantly.</li>
         </ol>
@@ -63,7 +66,7 @@ export default function Home() {
             Read our docs
           </a>
         </div>
-        <Button appName="docs" className={styles.secondary}>
+        <Button className={styles.secondary}>
           Open alert
         </Button>
       </main>
@@ -98,5 +101,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  );
+  )
 }
