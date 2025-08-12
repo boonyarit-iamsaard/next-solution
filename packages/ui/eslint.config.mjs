@@ -1,3 +1,3 @@
-import { reactConfig } from '@pet-shop/eslint-config/react'
+import { reactConfig } from '@next-solution/eslint-config/react'
 
 export default reactConfig

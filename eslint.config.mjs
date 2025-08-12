@@ -1,4 +1,4 @@
-import { baseConfig } from '@pet-shop/eslint-config'
+import { baseConfig } from '@next-solution/eslint-config'
 
 export default baseConfig.append({
   ignores: [

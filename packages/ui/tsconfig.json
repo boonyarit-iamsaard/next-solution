@@ -1,5 +1,5 @@
 {
-  "extends": "@pet-shop/typescript-config/react.json",
+  "extends": "@next-solution/typescript-config/react.json",
   "compilerOptions": {
     "outDir": "dist"
   },

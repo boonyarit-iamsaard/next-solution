@@ -1,5 +1,5 @@
 import type { ImageProps } from 'next/image'
-import { Button } from '@pet-shop/ui/button'
+import { Button } from '@next-solution/ui/button'
 import Image from 'next/image'
 import styles from './page.module.css'
 

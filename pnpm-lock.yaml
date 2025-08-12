@@ -23,7 +23,7 @@ importers:
 
   .:
     devDependencies:
-      '@pet-shop/eslint-config':
+      '@next-solution/eslint-config':
         specifier: workspace:*
         version: link:tools/eslint-config
       eslint:
@@ -44,7 +44,7 @@ importers:
 
   apps/admin:
     dependencies:
-      '@pet-shop/ui':
+      '@next-solution/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       next:
@@ -57,10 +57,10 @@ importers:
         specifier: ^19.1.0
         version: 19.1.1(react@19.1.1)
     devDependencies:
-      '@pet-shop/eslint-config':
+      '@next-solution/eslint-config':
         specifier: workspace:*
         version: link:../../tools/eslint-config
-      '@pet-shop/typescript-config':
+      '@next-solution/typescript-config':
         specifier: workspace:*
         version: link:../../tools/typescript-config
       '@types/node':
@@ -84,7 +84,7 @@ importers:
 
   apps/web:
     dependencies:
-      '@pet-shop/ui':
+      '@next-solution/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       next:
@@ -97,10 +97,10 @@ importers:
         specifier: ^19.1.0
         version: 19.1.1(react@19.1.1)
     devDependencies:
-      '@pet-shop/eslint-config':
+      '@next-solution/eslint-config':
         specifier: workspace:*
         version: link:../../tools/eslint-config
-      '@pet-shop/typescript-config':
+      '@next-solution/typescript-config':
         specifier: workspace:*
         version: link:../../tools/typescript-config
       '@types/node':
@@ -131,10 +131,10 @@ importers:
         specifier: ^19.1.0
         version: 19.1.1(react@19.1.1)
     devDependencies:
-      '@pet-shop/eslint-config':
+      '@next-solution/eslint-config':
         specifier: workspace:*
         version: link:../../tools/eslint-config
-      '@pet-shop/typescript-config':
+      '@next-solution/typescript-config':
         specifier: workspace:*
         version: link:../../tools/typescript-config
       '@types/node':

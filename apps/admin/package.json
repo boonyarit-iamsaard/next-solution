@@ -13,14 +13,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@pet-shop/ui": "workspace:*",
+    "@next-solution/ui": "workspace:*",
     "next": "^15.4.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@pet-shop/eslint-config": "workspace:*",
-    "@pet-shop/typescript-config": "workspace:*",
+    "@next-solution/eslint-config": "workspace:*",
+    "@next-solution/typescript-config": "workspace:*",
     "@types/node": "catalog:",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",

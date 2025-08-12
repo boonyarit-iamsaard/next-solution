@@ -1,5 +1,5 @@
 {
-  "name": "@pet-shop/eslint-config",
+  "name": "@next-solution/eslint-config",
   "type": "module",
   "version": "0.0.0",
   "private": true,

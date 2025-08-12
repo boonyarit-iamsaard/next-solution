@@ -1,5 +1,5 @@
 {
-  "name": "pet-shop",
+  "name": "next-solution",
   "private": true,
   "packageManager": "pnpm@10.13.1",
   "engines": {
@@ -18,7 +18,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@pet-shop/eslint-config": "workspace:*",
+    "@next-solution/eslint-config": "workspace:*",
     "eslint": "catalog:",
     "husky": "^9.1.7",
     "lint-staged": "catalog:",

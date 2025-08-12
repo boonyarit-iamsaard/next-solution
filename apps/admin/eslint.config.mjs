@@ -1,3 +1,3 @@
-import { nextConfig } from '@pet-shop/eslint-config/next'
+import { nextConfig } from '@next-solution/eslint-config/next'
 
 export default nextConfig
