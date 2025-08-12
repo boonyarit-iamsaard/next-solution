@@ -1,6 +1,7 @@
 import antfu from '@antfu/eslint-config'
 
-export const baseConfig = antfu({
+/** @type {Parameters<typeof antfu>[0]} */
+export const baseOptions = {
   formatters: true,
   typescript: {
     overrides: {
@@ -9,4 +10,8 @@ export const baseConfig = antfu({
       ],
     },
   },
+}
+
+export const baseConfig = antfu({
+  ...baseOptions,
 })

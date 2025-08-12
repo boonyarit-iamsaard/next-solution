@@ -1,14 +1,8 @@
 import antfu from '@antfu/eslint-config'
+import { baseOptions } from './base.js'
 
 export const nextConfig = antfu({
-  formatters: true,
+  ...baseOptions,
   react: true,
   nextjs: true,
-  typescript: {
-    overrides: {
-      'ts/consistent-type-definitions': [
-        'off',
-      ],
-    },
-  },
 })
