@@ -1,6 +1,6 @@
 import { baseConfig } from '@next-solution/eslint-config'
 
-export default baseConfig.append({
+const config = baseConfig.append({
   ignores: [
     'apps/*',
     'packages/*',
@@ -9,3 +9,5 @@ export default baseConfig.append({
     'pnpm-lock.yaml',
   ],
 })
+
+export default config

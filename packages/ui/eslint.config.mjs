@@ -1,3 +1,5 @@
 import { reactConfig } from '@next-solution/eslint-config/react'
 
-export default reactConfig
+const config = reactConfig
+
+export default config

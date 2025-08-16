@@ -1,3 +1,5 @@
 import { baseConfig } from './base.js'
 
-export default baseConfig
+const config = baseConfig
+
+export default config
