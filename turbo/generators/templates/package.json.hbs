@@ -1,0 +1,28 @@
+{
+  "name": "@next-solution/{{ name }}",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "clean": "git clean -xdf .cache .turbo node_modules",
+    "lint": "eslint --cache --cache-location .cache/.eslintcache",
+    "lint:fix": "eslint --fix --cache --cache-location .cache/.eslintcache",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@next-solution/eslint-config": "workspace:*",
+    "@next-solution/typescript-config": "workspace:*",
+    "@types/node": "^22.15.3",
+    "eslint": "catalog:",
+    "lint-staged": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:"
+  }
+}

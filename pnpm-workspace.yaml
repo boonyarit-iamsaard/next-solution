@@ -1,5 +1,6 @@
 packages:
   - apps/*
+  - contexts/*
   - packages/*
   - tools/*
 
@@ -7,4 +8,5 @@ catalog:
   '@types/node': ^22.15.3
   eslint: ^9.31.0
   lint-staged: ^16.1.5
+  tsup: ^8.5.0
   typescript: ^5.8.3
