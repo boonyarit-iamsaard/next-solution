@@ -1,15 +1,16 @@
-# CLAUDE.md
+# GEMINI.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Gemini when working with code in this repository.
 
 ## Important Instruction Reminders
 
-When regenerating this file using `/init`, always compare the content with `GEMINI.md` to ensure consistency. If the analysis reveals that `GEMINI.md` is outdated, notify the user that it needs to be updated.
+When regenerating this file using `/init`, always compare the content with `CLAUDE.md` to ensure consistency. If the analysis reveals that `CLAUDE.md` is outdated, notify the user that it needs to be updated.
 
 Do what has been asked; nothing more, nothing less.
 NEVER create files unless they're absolutely necessary for achieving your goal.
 ALWAYS prefer editing an existing file to creating a new one.
 NEVER proactively create documentation files (\*.md) or README files. Only create documentation files if explicitly requested by the User.
+ALWAYS wrap package names (e.g., `@scope/package`) and code snippets in backticks (`) to prevent parsing errors.
 
 ## Development Commands
 
@@ -39,7 +40,7 @@ Docker Compose services available for local development:
 - `apps/web/` - Next.js 15 web application (port 3000)
 - `apps/admin/` - Next.js 15 admin application (port 4000)
 - `packages/ui/` - Shared React component library with Tailwind CSS v4
-- `tools/eslint-config/` - Shared ESLint configurations (@antfu/eslint-config based)
+- `tools/eslint-config/` - Shared ESLint configurations (`@antfu/eslint-config` based)
 - `tools/typescript-config/` - Shared TypeScript configurations
 
 ### Key Technical Details
@@ -49,7 +50,7 @@ Docker Compose services available for local development:
 - **Framework**: Next.js 15 with React 19 and Turbopack for development
 - **Node.js**: >=22 (enforced in package.json engines)
 - **Styling**: Tailwind CSS v4 (latest version) in the UI package
-- **Code Quality**: ESLint with @antfu/eslint-config, lint-staged with Husky
+- **Code Quality**: ESLint with `@antfu/eslint-config`, lint-staged with Husky
 - **TypeScript**: Strict configuration across all packages
 
 ### UI Package Structure
@@ -87,7 +88,7 @@ The `@next-solution/ui` package exports components via path mapping:
 
 ## Code Quality Setup
 
-- **ESLint**: Based on @antfu/eslint-config with custom overrides
+- **ESLint**: Based on `@antfu/eslint-config` with custom overrides
 - **TypeScript**: Strict configuration with `noUncheckedIndexedAccess`
 - **Husky + lint-staged**: Pre-commit hooks for code quality
 - **Caching**: ESLint and TypeScript use `.cache/` directory
@@ -192,7 +193,7 @@ const componentVariants = cva(
 
 ### ESLint Rules
 
-- **Base**: @antfu/eslint-config with formatters enabled
+- **Base**: `@antfu/eslint-config` with formatters enabled
 - **Custom**: No direct object literal default exports (assign to variable first)
 - **Caching**: Uses `.cache/.eslintcache` for performance
 
