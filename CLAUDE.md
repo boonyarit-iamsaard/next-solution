@@ -34,9 +34,10 @@ For individual apps/packages, navigate to their directory and use the same comma
 
 ### Key Technical Details
 
-- **Package Manager**: pnpm with workspace protocol for internal dependencies
+- **Package Manager**: pnpm@10.13.1 with workspace protocol for internal dependencies
 - **Build System**: Turborepo for orchestrating builds and caching
 - **Framework**: Next.js 15 with React 19 and Turbopack for development
+- **Node.js**: >=22 (enforced in package.json engines)
 - **Styling**: Tailwind CSS v4 (latest version) in the UI package
 - **Code Quality**: ESLint with @antfu/eslint-config, lint-staged with Husky
 - **TypeScript**: Strict configuration across all packages
@@ -59,9 +60,10 @@ The `@next-solution/ui` package exports components via path mapping:
 ## Package Management
 
 - Uses pnpm catalog feature for centralized dependency versioning
-- Catalog dependencies: `@types/node`, `eslint`, `lint-staged`, `typescript`
+- Catalog dependencies: `@types/node@22.15.3`, `eslint@9.31.0`, `lint-staged@16.1.5`, `typescript@5.8.3`
 - Workspace protocol (`workspace:*`) links internal packages
 - All packages use ESM (`"type": "module"`)
+- Package naming convention: `@next-solution/package-name`
 
 ## Component Library (UI Package)
 
@@ -71,6 +73,7 @@ The `@next-solution/ui` package exports components via path mapping:
 - **Styling Approach**: Tailwind CSS v4 with CSS variables and design tokens
 - **Icon Library**: Lucide React icons
 - **Key Dependencies**: Radix UI primitives, clsx, tailwind-merge
+- **Theme**: "new-york" shadcn/ui theme with neutral base colors and OKLCH color system
 
 ## Code Quality Setup
 
@@ -85,3 +88,126 @@ The `@next-solution/ui` package exports components via path mapping:
 - Development tasks run persistently without caching
 - Lint and typecheck tasks depend on build completion
 - Cache is stored in `.cache/` directory
+
+## CI/CD
+
+- **GitHub Actions**: Single CI workflow combining build, lint, and typecheck
+- **Build Order**: build → lint → typecheck (required for type-aware ESLint rules)
+- **Node.js**: 22.x with pnpm@10.13.1
+- **Caching**: Uses pnpm cache for faster CI runs
+
+## Code Style
+
+### TypeScript Patterns
+
+- **Strict Mode**: `noUncheckedIndexedAccess` enabled for safer array/object access
+- **Module System**: ESM with `"module": "preserve"` (base) or `"esnext"` (React/Next.js)
+- **Type Definitions**: Prefer `interface` over `type` unless type alias features required (unions, mapped types, etc.)
+- **Modern ES**: Target ES2022 with incremental builds cached in `.cache/`
+
+### Export Patterns
+
+```tsx
+// Preferred - direct exports
+export function ComponentName({ ...props }: ComponentProps) {
+  return <div {...props} />
+}
+
+export function utilityFunction() {
+  // implementation
+}
+
+// shadcn/ui components use named exports for variants
+export { Button, buttonVariants }
+```
+
+### Interface vs Type Usage
+
+```tsx
+// Prefer interface for object shapes
+interface ComponentProps {
+  title: string
+  isVisible: boolean
+}
+
+// Use type alias when type features needed
+type ButtonVariant = 'primary' | 'secondary' | 'ghost'
+type ExtendedProps = ComponentProps & { variant: ButtonVariant }
+```
+
+### Import Organization
+
+```tsx
+// 1. Type-only imports first
+import type { VariantProps } from 'class-variance-authority'
+
+// Path-based UI package imports
+import { Button } from '@next-solution/ui/components/base/button'
+
+// 2. Internal package imports
+import { cn } from '@next-solution/ui/helpers/cn'
+// 3. External libraries
+import { Slot } from '@radix-ui/react-slot'
+
+import * as React from 'react'
+```
+
+### Component Variants (CVA)
+
+```tsx
+const componentVariants = cva(
+  'base-classes',
+  {
+    variants: {
+      variant: { default: 'classes', secondary: 'classes' },
+      size: { default: 'classes', sm: 'classes' }
+    },
+    defaultVariants: { variant: 'default', size: 'default' }
+  }
+)
+```
+
+### Styling Conventions
+
+- **Tailwind CSS v4**: Use CSS variables with OKLCH color space
+- **Class Composition**: Use `cn()` helper for conditional classes
+- **Modern CSS**: Leverage `:has()` selectors and `svh` units
+- **Dark Mode**: Custom `@custom-variant dark` for theme support
+
+### File Naming
+
+- **Components**: `kebab-case.tsx` (e.g., `button.tsx`)
+- **Utilities**: `kebab-case.ts` (e.g., `cn.ts`)
+- **Configs**: `kebab-case.mjs` for ESM (e.g., `eslint.config.mjs`)
+
+### ESLint Rules
+
+- **Base**: @antfu/eslint-config with formatters enabled
+- **Custom**: No direct object literal default exports (assign to variable first)
+- **Caching**: Uses `.cache/.eslintcache` for performance
+
+## Commit Message Guidelines
+
+Write clear, concise git commit messages following conventional commit format.
+
+### Format
+
+- Use conventional commit format: `<type>(<scope>): <subject>` or `<type>: <subject>`
+- Scope is optional - omit when changes are global or too generic
+- Write subject line in imperative mood (e.g., "fix bug", not "fixed bug")
+- Keep subject line lowercase except for proper nouns and acronyms
+- Limit subject line to 72 characters maximum
+- Omit commit message body - keep commits concise
+- Do not end subject line with a period
+- Use common commit types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `ci`
+
+### Examples
+
+```text
+feat(ui): add button component with variants
+fix(web): resolve navigation menu overflow issue
+docs: update README with setup instructions
+chore: update dependencies to latest versions
+ci: add GitHub Actions workflow
+fix: resolve pnpm version conflicts
+```
