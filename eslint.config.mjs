@@ -7,6 +7,7 @@ const config = baseConfig.append({
     'tools/*',
     '!tools/typescript-config',
     'pnpm-lock.yaml',
+    '.pnpm-store',
   ],
 })
 
