@@ -14,7 +14,7 @@
     "lint:fix": "turbo run lint:fix lint:root:fix --continue",
     "lint:root": "eslint --cache --cache-location .cache/.eslintcache",
     "lint:root:fix": "eslint --fix --cache --cache-location .cache/.eslintcache",
-    "typecheck": "turbo run typecheck",
+    "typecheck": "turbo run typecheck --continue",
     "prepare": "husky"
   },
   "devDependencies": {

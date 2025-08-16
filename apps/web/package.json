@@ -21,11 +21,13 @@
   "devDependencies": {
     "@next-solution/eslint-config": "workspace:*",
     "@next-solution/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "^4.1.12",
     "@types/node": "catalog:",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
     "eslint": "catalog:",
     "lint-staged": "catalog:",
+    "tailwindcss": "^4.1.12",
     "typescript": "catalog:"
   }
 }
