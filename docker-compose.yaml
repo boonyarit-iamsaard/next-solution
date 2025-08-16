@@ -1,0 +1,47 @@
+name: next-solution
+
+services:
+  mailpit:
+    container_name: next-solution-mailpit
+    image: docker.io/axllent/mailpit
+    restart: unless-stopped
+    volumes:
+      - mailpitdata:/data
+    ports:
+      - '8025:8025'
+      - '1025:1025'
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_DATABASE: /data/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    networks:
+      - next-solution-network
+
+  postgres:
+    container_name: next-solution-postgres
+    image: docker.io/postgres:15-alpine
+    ports:
+      - '5432:5432'
+    env_file:
+      - .env
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - next-solution-network
+    healthcheck:
+      test: pg_isready -U postgres -h localhost
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mailpitdata:
+    name: next-solution-mailpitdata
+  pgdata:
+    name: next-solution-pgdata
+
+networks:
+  next-solution-network:
+    name: next-solution-network
