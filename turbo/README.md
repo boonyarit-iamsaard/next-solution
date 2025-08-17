@@ -10,12 +10,12 @@ Generate a new package or bounded context:
 pnpm turbo gen package
 ```
 
-The generator will prompt you for:
+The generator will prompt you to:
 
 - **Package name** (automatically prefixed with `@next-solution/`)
 - **Package type**:
   - `Internal Package (packages/)` - Shared libraries and utilities
-  - `Bounded Context (contexts/)` - Domain bounded contexts
+  - `Bounded Context (contexts/)` - Domain-bounded contexts
 - **Dependencies** (optional space-separated list)
 
 ## Generated Structure

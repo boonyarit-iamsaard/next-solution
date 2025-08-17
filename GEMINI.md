@@ -49,7 +49,7 @@ Docker Compose services available for local development:
 - **Build System**: Turborepo for orchestrating builds and caching
 - **Framework**: Next.js 15 with React 19 and Turbopack for development
 - **Node.js**: >=22 (enforced in package.json engines)
-- **Styling**: Tailwind CSS v4 (latest version) in the UI package
+- **Styling**: Tailwind CSS v4 (the latest version) in the UI package
 - **Code Quality**: ESLint with `@antfu/eslint-config`, lint-staged with Husky
 - **TypeScript**: Strict configuration across all packages
 
@@ -132,7 +132,7 @@ export function utilityFunction() {
 export { Button, buttonVariants }
 ```
 
-### Interface vs Type Usage
+### Interface vs. Type Usage
 
 ```tsx
 // Prefer interface for object shapes
@@ -199,17 +199,17 @@ const componentVariants = cva(
 
 ## Commit Message Guidelines
 
-Write clear, concise git commit messages following conventional commit format.
+Write clear, concise git commit messages following the conventional commit format.
 
 ### Format
 
 - Use conventional commit format: `<type>(<scope>): <subject>` or `<type>: <subject>`
-- Scope is optional - omit when changes are global or too generic
-- Write subject line in imperative mood (e.g., "fix bug", not "fixed bug")
-- Keep subject line lowercase except for proper nouns and acronyms
+- Scope is optional—omit when changes are global or too generic
+- Write a subject line in an imperative mood (e.g., "fix bug," not "fixed bug")
+- Keep the subject line lowercase except for proper nouns and acronyms
 - Limit subject line to 72 characters maximum
 - Omit commit message body - keep commits concise
-- Do not end subject line with a period
+- Do not end the subject line with a period
 - Use common commit types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `ci`
 
 ### Examples

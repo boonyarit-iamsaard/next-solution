@@ -10,6 +10,7 @@ Do what has been asked; nothing more, nothing less.
 NEVER create files unless they're absolutely necessary for achieving your goal.
 ALWAYS prefer editing an existing file to creating a new one.
 NEVER proactively create documentation files (\*.md) or README files. Only create documentation files if explicitly requested by the User.
+ALWAYS wrap package names (e.g., `@scope/package`) and code snippets in backticks (`) to prevent parsing errors.
 
 ## Development Commands
 
@@ -39,7 +40,7 @@ Docker Compose services available for local development:
 - `apps/web/` - Next.js 15 web application (port 3000)
 - `apps/admin/` - Next.js 15 admin application (port 4000)
 - `packages/ui/` - Shared React component library with Tailwind CSS v4
-- `tools/eslint-config/` - Shared ESLint configurations (@antfu/eslint-config based)
+- `tools/eslint-config/` - Shared ESLint configurations (`@antfu/eslint-config` based)
 - `tools/typescript-config/` - Shared TypeScript configurations
 
 ### Key Technical Details
@@ -48,8 +49,8 @@ Docker Compose services available for local development:
 - **Build System**: Turborepo for orchestrating builds and caching
 - **Framework**: Next.js 15 with React 19 and Turbopack for development
 - **Node.js**: >=22 (enforced in package.json engines)
-- **Styling**: Tailwind CSS v4 (latest version) in the UI package
-- **Code Quality**: ESLint with @antfu/eslint-config, lint-staged with Husky
+- **Styling**: Tailwind CSS v4 (the latest version) in the UI package
+- **Code Quality**: ESLint with `@antfu/eslint-config`, lint-staged with Husky
 - **TypeScript**: Strict configuration across all packages
 
 ### UI Package Structure
@@ -87,7 +88,7 @@ The `@next-solution/ui` package exports components via path mapping:
 
 ## Code Quality Setup
 
-- **ESLint**: Based on @antfu/eslint-config with custom overrides
+- **ESLint**: Based on `@antfu/eslint-config` with custom overrides
 - **TypeScript**: Strict configuration with `noUncheckedIndexedAccess`
 - **Husky + lint-staged**: Pre-commit hooks for code quality
 - **Caching**: ESLint and TypeScript use `.cache/` directory
@@ -131,7 +132,7 @@ export function utilityFunction() {
 export { Button, buttonVariants }
 ```
 
-### Interface vs Type Usage
+### Interface vs. Type Usage
 
 ```tsx
 // Prefer interface for object shapes
@@ -192,23 +193,23 @@ const componentVariants = cva(
 
 ### ESLint Rules
 
-- **Base**: @antfu/eslint-config with formatters enabled
+- **Base**: `@antfu/eslint-config` with formatters enabled
 - **Custom**: No direct object literal default exports (assign to variable first)
 - **Caching**: Uses `.cache/.eslintcache` for performance
 
 ## Commit Message Guidelines
 
-Write clear, concise git commit messages following conventional commit format.
+Write clear, concise git commit messages following the conventional commit format.
 
 ### Format
 
 - Use conventional commit format: `<type>(<scope>): <subject>` or `<type>: <subject>`
-- Scope is optional - omit when changes are global or too generic
-- Write subject line in imperative mood (e.g., "fix bug", not "fixed bug")
-- Keep subject line lowercase except for proper nouns and acronyms
+- Scope is optional—omit when changes are global or too generic
+- Write a subject line in an imperative mood (e.g., "fix bug," not "fixed bug")
+- Keep the subject line lowercase except for proper nouns and acronyms
 - Limit subject line to 72 characters maximum
 - Omit commit message body - keep commits concise
-- Do not end subject line with a period
+- Do not end the subject line with a period
 - Use common commit types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `ci`
 
 ### Examples
